@@ -20,7 +20,14 @@ pipeline{
                 sh "npm test"
             }
         }
-
+	stage('Deploy') {
+	    steps {
+		sh '''
+		    oc project vupn-greetings
+		    oc start-build greeting-service --follow --wait
+		'''
+	    }
+	}
         // Add the "Deploy" stage here
     }
 }
